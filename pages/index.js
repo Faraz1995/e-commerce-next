@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import products from '../products.json'
+import { initialCheckout } from '../lib/payment'
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -19,14 +20,24 @@ export default function Home() {
         </p>
 
         <ul className={styles.grid}>
-          {products.map((product, index) => (
-            <li className={styles.card} key={index}>
+          {products.map((product) => (
+            <li className={styles.card} key={product.id}>
               <a href='https://nextjs.org/docs'>
                 <img src={product.image} alt='' />
                 <h2>{product.title}</h2>
                 <p>{product.price} $</p>
                 <p>{product.description}</p>
               </a>
+              <p>
+                <button
+                  className={styles.btn}
+                  onClick={() => {
+                    initialCheckout({ lineItems: [{ price: product.id, quantity: 1 }] })
+                  }}
+                >
+                  buy it
+                </button>
+              </p>
             </li>
           ))}
         </ul>
