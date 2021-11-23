@@ -1,0 +1,20 @@
+[
+  {
+    "title":"T shirt",
+    "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, ab.",
+    "image":"/images/1.png",
+    "price":20.00
+  },
+  {
+    "title":"Mug",
+    "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, natus.",
+    "image":"/images/2.png",
+    "price":20.00
+  },
+  {
+    "title":"Hoodie",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, at.",
+    "image":"/images/3.png",
+    "price":20.00
+  }
+]
