@@ -11,13 +11,13 @@
     "title":"Mug",
     "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, natus.",
     "image":"/images/2.png",
-    "price":20.00
+    "price":5.00
   },
   {
     "id":"price_1Jw5TPBaKf60CtKtRjR98PCE",
     "title":"Hoodie",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, at.",
     "image":"/images/3.png",
-    "price":20.00
+    "price":35.00
   }
 ]

@@ -4,72 +4,10 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import products from '../products.json'
 import { initialCheckout } from '../lib/payment'
+import useCart from '../hooks/useCart'
 
-const defaultCart = {
-  products: {}
-}
 export default function Home() {
-  const [cart, setCart] = useState(defaultCart)
-
-  const cartItems = Object.keys(cart.products).map(key=>{
-    const product = products.find(({id})=>`${id}` ===`${key}`)
-    return{
-      ...cart.products[key],
-      pricePerItem:product.price
-    }
-  })
-
-  const subTotal = cartItems.reduce((acc,{pricePerItem,quantity})=>{
-    return acc + (pricePerItem*quantity)
-  },0)
-
-  const totalItem = cartItems.reduce((acc,{quantity})=>{
-    return acc + quantity
-  },0)
-
-  console.log(subTotal,'total');
-
-  const addToCart = (product) => {
-    const {id} = product
-    const cartState ={ ...cart}
-    if(cartState.products[id]){
-      console.log('already in');
-      cartState.products[id].quantity = cartState.products[id].quantity + 1
-    }else{
-        cartState.products[id] = {
-          id,
-          name:product.title,
-          quantity: 1
-        }  
-    }
-    setCart(cartState)
-
-
-    // setCart(prev => {
-    //   let cartState = { ...cart }
-
-    //   if (cartState.products[id]) {
-    //     cartState.products[id].quantity = cartState.products[id].quantity + 1
-    //   } else {
-    //     cartState.products[id] = {
-    //       id,
-    //       name:product.title,
-    //       quantity: 1
-    //     }
-    //   }
-    //   return cartState
-    // })
-  }
-console.log(cart);
-
-const checkout =() =>{
-  initialCheckout({ lineItems: cartItems.map((item)=>{
-    return{
-      price:item.id,
-      quantity:item.quantity
-    }
-  }) })
-}
+  const { subTotal, totalItem, checkout, addToCart } = useCart()
 
   return (
     <div className={styles.container}>
@@ -91,7 +29,9 @@ const checkout =() =>{
           <br />
           <strong>total: </strong> {subTotal}
           <br />
-          <button className={styles.btn} onClick={checkout}>check out</button>
+          <button className={styles.btn} onClick={checkout}>
+            check out
+          </button>
         </p>
 
         <ul className={styles.grid}>
@@ -104,10 +44,7 @@ const checkout =() =>{
                 <p>{product.description}</p>
               </a>
               <p>
-                <button
-                  className={styles.btn}
-                  onClick={()=>addToCart(product)}
-                >
+                <button className={styles.btn} onClick={() => addToCart(product)}>
                   add it
                 </button>
               </p>
